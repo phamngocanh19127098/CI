@@ -16,9 +16,9 @@ jobs:
     - run: docker push 19127098/nest-app
   run:
     runs-on: self-hosted
-
+    
     steps:
     - uses: actions/checkout@v3
     - run: sudo docker pull 19127098/nest-app
     - run: sudo docker rm -f app
-    - run: sudo docker run -d -p 80:80 19127098/nest-app
+    - run: sudo docker run -d -p 80:80 --name app 19127098/nest-app
