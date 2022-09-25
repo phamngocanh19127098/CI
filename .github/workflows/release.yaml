@@ -7,10 +7,18 @@ on:
 jobs:
   deploy:
 
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
     - run: docker build -t 19127098/nest-app .
     - run: docker login -u ${{secrets.DOCKER_HUB_USERNAME}} -p ${{secrets.DOCKER_HUB_PASSWORD}}
     - run: docker push 19127098/nest-app
+  run:
+    runs-on: self-hosted
+
+    steps:
+    - uses: actions/checkout@v3
+    - run: sudo docker pull 19127098/nest-app
+    - run: sudo docker rm -f app
+    - run: sudo docker run -d -p 80:80 19127098/nest-app
