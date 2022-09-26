@@ -10,15 +10,15 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - run: docker build -t 19127098/nest-app .
+      - run: docker build -t 19127098/nest-app:lastest .
       - run: docker login -u ${{secrets.DOCKER_HUB_USERNAME}} -p ${{secrets.DOCKER_HUB_PASSWORD}}
-      - run: docker push 19127098/nest-app
+      - run: docker push 19127098/nest-app:lastest
 
   cd:
     runs-on: self-hosted
     needs: deploy
     steps:
       - uses: actions/checkout@v3
-      - run: sudo docker pull 19127098/nest-app
+      - run: sudo docker pull 19127098/nest-app:lastest
       - run: sudo docker rm -f app
       - run: sudo docker run -d -p 80:80 --name app 19127098/nest-app
